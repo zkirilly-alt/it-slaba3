@@ -51,7 +51,6 @@ static void heapify_deque(Deque *deque, int n, int start_i)
         {
             break;
         }
-
         i = largest;
     }
 }
@@ -62,17 +61,21 @@ void bubble_sort_deque(Deque *deque)
         return;
 
     int n = deque->size;
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n - 1; i++)
+    {
         int swapped = 0;
-        for (int j = 0; j < n - 1 - i; j++) {
+        for (int j = 0; j < n - 1 - i; j++)
+        {
             Node *a = get_node_at_index(deque, j);
             Node *b = get_node_at_index(deque, j + 1);
-            if (a && b && a->data > b->data) {
+            if (a && b && a->data > b->data)
+            {
                 swap_nodes_complete(deque, a, b);
                 swapped = 1;
             }
         }
-        if (!swapped) break;
+        if (!swapped)
+            break;
     }
 }
 
