@@ -1,14 +1,16 @@
+#include <limits.h>
 #ifndef DEQUE_H
 #define DEQUE_H
+typedef struct Node  Node;
 
 typedef struct Node {
     int data;
     struct Node* prev;
-    struct Node* next;
+    Node* next;
 } Node;
 
 typedef struct Deque {
-    Node* front;
+    struct Node* front;
     Node* rear;
     int size;
 } Deque;

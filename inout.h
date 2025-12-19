@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include "deque.h"
+#define MAX_INPUT_LENGTH 1024
+#define MAX_CHOICE_LENGTH 20
 
 void allinout(void);
 

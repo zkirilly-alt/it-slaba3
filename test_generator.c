@@ -6,7 +6,7 @@
 #include "deque.h"
 #include "file_io.h"
 #include "sorting.h"
-
+#include "inout.h"
 int main() {
     printf("Генератор тестовых данных для дека\n");
     srand(time(NULL));
@@ -18,16 +18,14 @@ int main() {
         printf("3. Выйти\n");
         printf("Выберите опцию: ");
         
-        char choice_str[10];
+        char choice_str[MAX_CHOICE_LENGTH];
         if (fgets(choice_str, sizeof(choice_str), stdin) == NULL) {
             printf("Ошибка чтения ввода!\n");
             continue;
         }
         
-        // Удаляем символ новой строки
         choice_str[strcspn(choice_str, "\n")] = '\0';
         
-        // Проверяем, является ли ввод числом
         int is_number = 1;
         for (int i = 0; choice_str[i] != '\0'; i++) {
             if (!isdigit((unsigned char)choice_str[i])) {
@@ -45,7 +43,7 @@ int main() {
         
         if (choice == 1) {
             int size, min, max;
-            char filename[256];
+            char filename[MAX_FILENAME_LENGTH];
             
             printf("Введите имя файла: ");
             if (fgets(filename, sizeof(filename), stdin) == NULL) {
@@ -55,13 +53,12 @@ int main() {
             filename[strcspn(filename, "\n")] = '\0';
             
             printf("Введите количество чисел: ");
-            char size_str[20];
+            char size_str[MAX_CHOICE_LENGTH];
             if (fgets(size_str, sizeof(size_str), stdin) == NULL) {
                 printf("Ошибка ввода размера!\n");
                 continue;
             }
             
-            // Проверка, что введено число
             size_str[strcspn(size_str, "\n")] = '\0';
             int valid_size = 1;
             for (int i = 0; size_str[i] != '\0'; i++) {
@@ -79,7 +76,7 @@ int main() {
             size = atoi(size_str);
             
             printf("Введите минимальное значение: ");
-            char min_str[20];
+            char min_str[MAX_CHOICE_LENGTH ];
             if (fgets(min_str, sizeof(min_str), stdin) == NULL) {
                 printf("Ошибка ввода минимального значения!\n");
                 continue;
@@ -107,7 +104,7 @@ int main() {
             min = atoi(min_str);
             
             printf("Введите максимальное значение: ");
-            char max_str[20];
+            char max_str[MAX_CHOICE_LENGTH ];
             if (fgets(max_str, sizeof(max_str), stdin) == NULL) {
                 printf("Ошибка ввода максимального значения!\n");
                 continue;
@@ -139,13 +136,13 @@ int main() {
                 continue;
             }
             
-            // Создаем дек
+
             Deque* deque = create_deque();
             for (int i = 0; i < size; i++) {
                 push_rear(deque, min + rand() % (max - min + 1));
             }
             
-            // Сохраняем дек в файл
+
             if (save_deque_to_file(filename, deque)) {
                 printf("Создан файл: %s с %d элементами\n", filename, size);
             } else {

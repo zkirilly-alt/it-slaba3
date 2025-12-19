@@ -132,14 +132,14 @@ Deque* create_deque_from_input(const char* input) {
 void test_all_files(void) {
     printf("\n=== Тестирование на всех файлах из папки tests ===\n");
     
-    int test_sizes[] = {100, 500, 1000, 5000, 10000, 50000, 100000};
+    int test_sizes[] = {100, 500, 1000, 2000, 5000};
     int test_count = sizeof(test_sizes) / sizeof(test_sizes[0]);
     
     printf("\nФайл           | Размер | Пузырек (сек) | Пирамид. (сек) | Ускорение\n");
     printf("---------------------------------------------------------------------\n");
     
     for (int i = 0; i < test_count; i++) {
-        char filename[256];
+        char filename[MAX_FILENAME_LENGTH];
         snprintf(filename, sizeof(filename), "tests/test_%d.txt", test_sizes[i]);
         
         Deque* deque = load_deque_from_file(filename);
@@ -184,7 +184,7 @@ void allinout(void) {
     do {
         print_menu();
         
-        char choice_str[10];
+        char choice_str[MAX_CHOICE_LENGTH];
         if (!safe_fgets(choice_str, sizeof(choice_str), stdin)) {
             printf("Ошибка чтения ввода!\n");
             continue;
@@ -200,7 +200,7 @@ void allinout(void) {
         switch(choice) {
             case 1: {
                 printf("Введите числа через пробел: ");
-                char input[1024];
+                char input[MAX_INPUT_LENGTH];
                 if (!safe_fgets(input, sizeof(input), stdin)) {
                     printf("Ошибка чтения ввода!\n");
                     break;
@@ -276,7 +276,7 @@ void allinout(void) {
                 
             case 4: {
                 printf("Введите имя файла для загрузки: ");
-                char filename[256];
+                char filename[MAX_FILENAME_LENGTH];
                 if (!safe_fgets(filename, sizeof(filename), stdin)) {
                     printf("Ошибка чтения имени файла!\n");
                     break;
@@ -304,7 +304,7 @@ void allinout(void) {
                     printf("Содержимое дека (размер: %d):\n", get_size(deque));
                     print_deque(deque);
                 } else {
-                    printf("Дек пуст!\n");
+                    printf("Дeк пуст!\n");
                 }
                 break;
                 
@@ -312,10 +312,10 @@ void allinout(void) {
                 printf("Проверка тестовых файлов...\n");
                 create_tests_directory();
                 
-                if (system("ls tests/*.txt 2>/dev/null | head -1") != 0) {
-                    printf("Генерация тестовых файлов...\n");
-                    generate_multiple_test_files(5);
-                }
+                
+                printf("Генерация тестовых файлов...\n");
+                generate_multiple_test_files(5);
+                
                 
                 test_all_files();
                 break;

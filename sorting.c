@@ -61,17 +61,26 @@ void bubble_sort_deque(Deque *deque)
         return;
 
     int n = deque->size;
+
     for (int i = 0; i < n - 1; i++)
     {
+        Node *a = deque->front;
+        Node *b = a->next;
+    
         int swapped = 0;
         for (int j = 0; j < n - 1 - i; j++)
         {
-            Node *a = get_node_at_index(deque, j);
-            Node *b = get_node_at_index(deque, j + 1);
+
             if (a && b && a->data > b->data)
             {
                 swap_nodes_complete(deque, a, b);
                 swapped = 1;
+                b = a->next;   
+            }
+            else
+            {
+                a = a->next; 
+                b = b->next; 
             }
         }
         if (!swapped)

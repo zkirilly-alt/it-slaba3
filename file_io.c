@@ -95,8 +95,8 @@ void generate_multiple_test_files(int base_count)
 
     for (int i = 0; i < count; i++)
     {
-        char filename[256];
+        char filename[MAX_FILENAME_LENGTH];
         snprintf(filename, sizeof(filename), "tests/test_%d.txt", test_sizes[i]);
-        generate_test_file(filename, test_sizes[i], -10000, 10000);
+        generate_test_file(filename, test_sizes[i], TEST_MIN_VALUE, TEST_MAX_VALUE);
     }
 }

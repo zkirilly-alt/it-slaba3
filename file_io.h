@@ -2,6 +2,9 @@
 #define FILE_IO_H
 
 #include "deque.h"
+#define MAX_FILENAME_LENGTH (256)
+#define TEST_MIN_VALUE (-10000)
+#define TEST_MAX_VALUE (10000)
 
 int save_deque_to_file(const char* filename, Deque* deque);
 Deque* load_deque_from_file(const char* filename);
