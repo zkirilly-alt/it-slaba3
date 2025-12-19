@@ -81,20 +81,21 @@ static void create_tests_dir(void)
     (void)result;
 }
 
-void generate_multiple_test_files(int base_count)
-{
+void generate_multiple_test_files(int base_count) {
     create_tests_dir();
+    
 
-    int test_sizes[] = {100, 500, 1000, 2000, 5000};
-    int count = sizeof(test_sizes) / sizeof(test_sizes[0]);
-
-    if (base_count < count)
-    {
+    int test_sizes[] = {
+        100, 500, 1000, 2000, 5000,
+        10000, 20000, 50000, 75000, 100000
+    };
+    int count = sizeof(test_sizes) / sizeof(test_sizes[0]); 
+    
+    if (base_count < count) {
         count = base_count;
     }
-
-    for (int i = 0; i < count; i++)
-    {
+    
+    for (int i = 0; i < count; i++) {
         char filename[MAX_FILENAME_LENGTH];
         snprintf(filename, sizeof(filename), "tests/test_%d.txt", test_sizes[i]);
         generate_test_file(filename, test_sizes[i], TEST_MIN_VALUE, TEST_MAX_VALUE);

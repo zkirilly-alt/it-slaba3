@@ -132,11 +132,14 @@ Deque* create_deque_from_input(const char* input) {
 void test_all_files(void) {
     printf("\n=== Тестирование на всех файлах из папки tests ===\n");
     
-    int test_sizes[] = {100, 500, 1000, 2000, 5000};
+    int test_sizes[] = {
+        100, 500, 1000, 2000, 5000,
+        10000, 20000
+    };
     int test_count = sizeof(test_sizes) / sizeof(test_sizes[0]);
     
-    printf("\nФайл           | Размер | Пузырек (сек) | Пирамид. (сек) | Ускорение\n");
-    printf("---------------------------------------------------------------------\n");
+    printf("\nФайл             | Размер  | Пузырек (сек) | Пирамид. (сек) | Ускорение\n");
+    printf("------------------------------------------------------------------------\n");
     
     for (int i = 0; i < test_count; i++) {
         char filename[MAX_FILENAME_LENGTH];
@@ -147,13 +150,14 @@ void test_all_files(void) {
             double bubble_time = measure_bubble_sort_time(deque);
             double heap_time = measure_heap_sort_time(deque);
             
-            printf("%-15s | %6d | %13.6f | %13.6f | %.2fx\n", 
+            
+            printf("%-17s | %7d | %13.6f | %13.6f | %.2fx\n", 
                    filename, test_sizes[i], bubble_time, heap_time, 
-                   bubble_time / heap_time);
+                   (heap_time > 0) ? heap_time / bubble_time : 0.0);
             
             delete_deque(deque);
         } else {
-            printf("%-15s | %6d | Файл не найден\n", filename, test_sizes[i]);
+            printf("%-17s | %7d | Файл не найден\n", filename, test_sizes[i]);
         }
     }
 }
@@ -314,7 +318,7 @@ void allinout(void) {
                 
                 
                 printf("Генерация тестовых файлов...\n");
-                generate_multiple_test_files(5);
+                generate_multiple_test_files(7);
                 
                 
                 test_all_files();
